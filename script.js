@@ -62,3 +62,13 @@ document.addEventListener("mousemove", function(event) {
         shapeElement.remove();
     }, 1200); // Duration before the shape disappears
 });
+
+document.addEventListener("click", function() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log(`Error al intentar entrar en pantalla completa: ${err.message}`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+});
