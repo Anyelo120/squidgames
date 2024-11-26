@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const interval = setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Botones ocultos
     const buttons = document.querySelectorAll('.hidden-button');
     const secretText = document.getElementById('secret-text');
     let activatedButtons = 0;
@@ -50,8 +49,7 @@ document.addEventListener("mousemove", function(event) {
     const shapeElement = document.createElement("div");
     shapeElement.className = `shape ${randomShape}`;
     
-    // Randomize position slightly around mouse
-    const offsetX = (Math.random() - 0.5) * 50; // Between -25px and 25px
+    const offsetX = (Math.random() - 0.5) * 50;
     const offsetY = (Math.random() - 0.5) * 50;
     shapeElement.style.left = `${event.clientX + offsetX}px`;
     shapeElement.style.top = `${event.clientY + offsetY}px`;
@@ -60,15 +58,17 @@ document.addEventListener("mousemove", function(event) {
 
     setTimeout(() => {
         shapeElement.remove();
-    }, 1200); // Duration before the shape disappears
+    }, 1200);
 });
 
-document.addEventListener("click", function() {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(err => {
-            console.log(`Error al intentar entrar en pantalla completa: ${err.message}`);
-        });
-    } else {
-        document.exitFullscreen();
-    }
+document.addEventListener("DOMContentLoaded", function() {
+    const activateFullScreen = () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.log(`Error al intentar entrar en pantalla completa: ${err.message}`);
+            });
+        }
+        document.removeEventListener("click", activateFullScreen);
+    };
+    document.addEventListener("click", activateFullScreen);
 });
